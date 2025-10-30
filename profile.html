@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Campus Dine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-color);
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+        
+        .profile-avatar svg {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .profile-info h2 {
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .profile-info p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-color);
+            margin-bottom: 20px;
+        }
+        
+        .profile-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+        }
+        
+        .profile-tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .profile-section {
+            margin-bottom: 30px;
+        }
+        
+        .profile-section h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gray-color);
+            border-radius: 5px;
+        }
+        
+        .order-card {
+            border: 1px solid var(--gray-color);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-color);
+        }
+        
+        .order-items {
+            margin-bottom: 10px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .order-total {
+            font-weight: 600;
+            text-align: right;
+            padding-top: 10px;
+            border-top: 1px solid var(--gray-color);
+        }
+        
+        .btn-save {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn-logout {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 2C12.3 2 2 12.3 2 25C2 37.7 12.3 48 25 48C37.7 48 48 37.7 48 25C48 12.3 37.7 2 25 2Z" fill="#FF6B35"/>
+                    <path d="M25 10C20 10 15 12 15 18C15 24 20 28 25 28C30 28 35 24 35 18C35 12 30 10 25 10Z" fill="#FFC13B"/>
+                    <path d="M15 32C15 32 20 38 25 38C30 38 35 32 35 32" stroke="#4A1D1F" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <h1>Campus Dine</h1>
+            </div>
+            <div class="header-right">
+                <div class="cart-icon">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 22C7.9 22 7.01 22.9 7.01 24C7.01 25.1 7.9 26 9 26C10.1 26 11 25.1 11 24C11 22.9 10.1 22 9 22ZM3 4V6H5L9.6 15.59L8.25 18.04C8.09 18.32 8 18.65 8 19C8 20.1 8.9 21 10 21H24V19H10.42C10.28 19 10.17 18.89 10.17 18.75L10.2 18.63L11.1 17H19.55C20.3 17 20.96 16.59 21.3 15.97L25.88 7.5C26.25 6.85 25.77 6 25.01 6H7.21L6.33 4H3ZM21 22C19.9 22 19.01 22.9 19.01 24C19.01 25.1 19.9 26 21 26C22.1 26 23 25.1 23 24C23 22.9 22.1 22 21 22Z" fill="#4A1D1F"/>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#menu">Menu</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#reviews">Reviews</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button id="login-button" class="auth-button hidden">Login</button>
+                    <button id="signup-button" class="auth-button hidden">Sign Up</button>
+                    <div class="user-profile">
+                        <div class="profile-trigger">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 15C18.3137 15 21 12.3137 21 9C21 5.68629 18.3137 3 15 3C11.6863 3 9 5.68629 9 9C9 12.3137 11.6863 15 15 15Z" fill="#4A1D1F"/>
+                                <path d="M15 16.5C9.5 16.5 5 20 5 24.5V27H25V24.5C25 20 20.5 16.5 15 16.5Z" fill="#4A1D1F"/>
+                            </svg>
+                            <span class="username">User</span>
+                        </div>
+                        <div class="profile-dropdown">
+                            <ul>
+                                <li><a href="profile.html">My Profile</a></li>
+                                <li><a href="profile.html#orders">My Orders</a></li>
+                                <li><button id="logout-button" class="auth-button">Logout</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-toggle">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M30 30C36.6274 30 42 24.6274 42 18C42 11.3726 36.6274 6 30 6C23.3726 6 18 11.3726 18 18C18 24.6274 23.3726 30 30 30Z" fill="#4A1D1F"/>
+                            <path d="M30 33C19 33 10 40 10 49V54H50V49C50 40 41 33 30 33Z" fill="#4A1D1F"/>
+                        </svg>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-name">John Doe</h2>
+                        <p id="profile-email">john.doe@example.com</p>
+                        <p id="profile-phone">+91 9876543210</p>
+                    </div>
+                </div>
+
+                <div class="profile-tabs">
+                    <div class="profile-tab active" data-tab="personal-info">Personal Information</div>
+                    <div class="profile-tab" data-tab="orders">My Orders</div>
+                    <div class="profile-tab" data-tab="addresses">Addresses</div>
+                    <div class="profile-tab" data-tab="settings">Settings</div>
+                </div>
+
+                <div class="tab-content active" id="personal-info">
+                    <div class="profile-section">
+                        <h3>Edit Profile</h3>
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" value="+91 9876543210">
+                            </div>
+                            <button type="submit" class="btn-save">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="orders">
+                    <div class="profile-section">
+                        <h3>Order History</h3>
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-id">Order #12345</div>
+                                <div class="order-date">June 15, 2023</div>
+                                <div class="order-status">Delivered</div>
+                            </div>
+                            <div class="order-items">
+                                <div class="order-item">
+                                    <span>Butter Chicken x 1</span>
+                                    <span>₹350</span>
+                                </div>
+                                <div class="order-item">
+                                    <span>Paneer Tikka x 2</span>
+                                    <span>₹600</span>
+                                </div>
+                            </div>
+                            <div class="order-total">
+                                Total: ₹950
+                            </div>
+                        </div>
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-id">Order #12346</div>
+                                <div class="order-date">June 10, 2023</div>
+                                <div class="order-status">Delivered</div>
+                            </div>
+                            <div class="order-items">
+                                <div class="order-item">
+                                    <span>Biryani x 1</span>
+                                    <span>₹400</span>
+                                </div>
+                            </div>
+                            <div class="order-total">
+                                Total: ₹400
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="addresses">
+                    <div class="profile-section">
+                        <h3>Saved Addresses</h3>
+                        <div class="address-card">
+                            <h4>Home</h4>
+                            <p>123 Main Street, Apartment 4B</p>
+                            <p>Mumbai, Maharashtra 400001</p>
+                            <p>India</p>
+                        </div>
+                        <div class="address-card">
+                            <h4>Work</h4>
+                            <p>456 Office Park, Building C</p>
+                            <p>Mumbai, Maharashtra 400002</p>
+                            <p>India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="settings">
+                    <div class="profile-section">
+                        <h3>Account Settings</h3>
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="en">English</option>
+                                <option value="hi">Hindi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notifications">Email Notifications</label>
+                            <input type="checkbox" id="notifications" checked> Receive order updates and promotions
+                        </div>
+                        <button id="change-password" class="btn-save">Change Password</button>
+                        <button id="logout" class="btn-logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg width="40" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 2C12.3 2 2 12.3 2 25C2 37.7 12.3 48 25 48C37.7 48 48 37.7 48 25C48 12.3 37.7 2 25 2Z" fill="#FF6B35"/>
+                        <path d="M25 10C20 10 15 12 15 18C15 24 20 28 25 28C30 28 35 24 35 18C35 12 30 10 25 10Z" fill="#FFC13B"/>
+                        <path d="M15 32C15 32 20 38 25 38C30 38 35 32 35 32" stroke="#4A1D1F" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3>Campus Dine</h3>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index.html#menu">Menu</a></li>
+                            <li><a href="index.html#about">About Us</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Refund Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Contact Us</h4>
+                        <p>Email: support@campusdine.com</p>
+                        <p>Phone: +91 9876543210</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Campus Dine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Handle form submission
+            const profileForm = document.getElementById('profile-form');
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const phone = document.getElementById('phone').value;
+                    
+                    // Update profile info
+                    document.getElementById('profile-name').textContent = name;
+                    document.getElementById('profile-email').textContent = email;
+                    document.getElementById('profile-phone').textContent = phone;
+                    
+                    // Show success message
+                    alert('Profile updated successfully!');
+                });
+            }
+            
+            // Handle logout
+            const logoutBtn = document.getElementById('logout');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    // Perform logout actions
+                    window.location.href = 'index.html';
+                });
+            }
+            
+            // Check URL hash for direct tab access
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const targetTab = document.querySelector(`.profile-tab[data-tab="${hash}"]`);
+                if (targetTab) {
+                    targetTab.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
